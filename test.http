@@ -1,0 +1,59 @@
+# POST http://localhost:5000/api/auth/login
+# Content-Type: application/json
+
+# {
+# "email": "sonu@test.com",
+# "password": "123456"
+# }
+
+# GET http://localhost:5000/api/profile
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjJhZTJlZDAxOGE4ZmYyY2ZlNTQzMSIsImlhdCI6MTc3MzMxODIyMCwiZXhwIjoxNzczOTIzMDIwfQ.eWt2SpPHQm5rQc1M3Tjrij0dMy3xqZDqetfQ9LpIMSI
+
+
+# POST http://localhost:5000/api/categories
+# Content-Type: application/json
+
+# {
+# "name": "Bracelets",
+# "description": "Healing crystal bracelets"
+# }
+
+# POST http://localhost:5000/api/products
+# Content-Type: application/json
+
+# {
+# "name": "Rose Quartz Bracelet",
+# "description": "Healing crystal bracelet",
+# "price": 499,
+# "category": "69b2b3d3a85a90aa3cdcfb76",
+# "stock": 20,
+# "images": ["rose1.jpg"]
+# }
+
+# DELETE http://localhost:5000/api/products/69b2b54005ec4458a66d8b85
+
+
+
+# POST http://localhost:5000/api/auth/login
+# Content-Type: application/json
+
+# {
+# "email": "sonu@test.com",
+# "password": "123456"
+# }
+
+
+# POST http://localhost:5000/api/cart
+# Authorization: Bearer 
+# Content-Type: application/json
+
+# {
+#   "productId": "69b2b54005ec4458a66d8b85",
+#   "quantity": 2
+# }
+
+
+GET http://localhost:5000/api/cart
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjJhZTJlZDAxOGE4ZmYyY2ZlNTQzMSIsImlhdCI6MTc3MzMyMDU5MCwiZXhwIjoxNzczOTI1MzkwfQ.4mHVpfmSo_hzeA1vPTi7IHIU41U0PU2QDQVqKEnRMyg
+
+
