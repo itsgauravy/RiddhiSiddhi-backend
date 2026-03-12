@@ -1,3 +1,6 @@
+const adminMiddleware = require("../middleware/adminMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
+const upload = require("../middleware/upload");
 const express = require("express");
 const router = express.Router();
 
@@ -9,10 +12,13 @@ const {
   deleteProduct
 } = require("../controllers/productController");
 
-router.post("/", createProduct);
+
 router.get("/", getProducts);
 router.get("/:id", getProductById);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.put("/:id", authMiddleware, adminMiddleware, updateProduct);
+router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);
+
+router.post("/", authMiddleware, adminMiddleware, upload.array("images", 5), createProduct);
+
 
 module.exports = router;

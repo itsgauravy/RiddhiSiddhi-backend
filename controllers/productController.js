@@ -1,10 +1,17 @@
 const mongoose = require("mongoose");
 const Product = require("../models/Product");
 
+
 exports.createProduct = async (req, res) => {
   try {
 
-    const { name, description, price, category, stock, images } = req.body;
+    const { name, description, price, category, stock } = req.body;
+
+    let images = [];
+
+if (req.files) {
+  images = req.files.map(file => file.path);
+}
 
     const product = await Product.create({
       name,
@@ -23,13 +30,47 @@ exports.createProduct = async (req, res) => {
 };
 
 
-
 exports.getProducts = async (req, res) => {
   try {
 
-    const products = await Product.find().populate("category", "name");
+    const { search, category, sort, page = 1, limit = 10 } = req.query;
 
-    res.json(products);
+    let query = {};
+
+    // Search by product name
+    if (search) {
+      query.name = { $regex: search, $options: "i" };
+    }
+
+    // Filter by category
+    if (category) {
+      query.category = category;
+    }
+
+    let sortOption = {};
+
+    // Sorting
+    if (sort === "price_asc") {
+      sortOption.price = 1;
+    }
+
+    if (sort === "price_desc") {
+      sortOption.price = -1;
+    }
+
+    const products = await Product.find(query)
+      .populate("category", "name")
+      .sort(sortOption)
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    const total = await Product.countDocuments(query);
+
+    res.json({
+      total,
+      page: Number(page),
+      products
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
